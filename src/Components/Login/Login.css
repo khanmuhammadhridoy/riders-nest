@@ -1,0 +1,43 @@
+.paper {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.avatar {
+  margin: 8px;
+  background: #dc004e !important;
+}
+.form {
+  width: 100%;
+  margin-top: 8px;
+}
+.submit {
+  margin: 24px 0px 16px 0px !important;
+}
+.otherLogin img {
+  width: 30px;
+}
+.signInButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+}
+.signUp {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+p {
+  margin: auto;
+  padding: 10px;
+}
+.otherLogin{
+  text-align: center;
+}

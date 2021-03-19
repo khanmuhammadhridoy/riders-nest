@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "603be3c2be64e9e135312e19",
+      "index": 0,
+      "img": "https://i.ibb.co/HqGT4F0/f1.png",
+      "name": "Bike"
+    },
+    {
+      "id": "603be3c2be64e5e135312e19",
+      "index": 1,
+      "img": "https://i.ibb.co/f8YnTCZ/f2.png",
+      "name": "Car"
+    },
+    {
+      "id": "603be3c2be6445e135312e19",
+      "index": 2,
+      "img": "https://i.ibb.co/xf5tLy3/f3.png",
+      "name": "Bus"
+    },
+    {
+      "id": "603be3c2be6477e135312e19",
+      "index": 3,
+      "img": "https://i.ibb.co/88wr5mD/f4.png",
+      "name": "Train"
+    }
+  ]
+}
