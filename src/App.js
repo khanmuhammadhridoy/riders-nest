@@ -5,7 +5,6 @@ import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
-import SignUp from "./Components/SingUp/SignUp";
 import NotFound from "./Components/NotFound/NotFound";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Blog from "./Components/Blog/Blog";
@@ -27,9 +26,6 @@ function App() {
           </Route>
           <Route path="/login">
             <Login></Login>
-          </Route>
-          <Route path="/signup">
-            <SignUp></SignUp>
           </Route>
           <PrivateRoute path="/blog">
             <Blog></Blog>

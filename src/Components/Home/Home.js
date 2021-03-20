@@ -2,33 +2,41 @@ import React from "react";
 import "./Home.css";
 import { useEffect, useState } from "react";
 import Navigation from "../Navigation/Navigation";
-import Info from "../Info/Info";
+import Ride from "../Ride/Ride";
 import { useHistory } from "react-router";
+// import { createContext } from "react";
+
+
+// export const RideContext = createContext();
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [ride, setRide] = useState("");
+  const [rides, setRides] = useState([]);
   const history = useHistory();
   useEffect(() => {
     const res = require("../../fakeData/data.json");
-    setData(res.data);
+    setRides(res.data);
   }, []);
-  const handleRoad = () => {
+  const handleRoad = (id) => {
+    // setRide(id);
     history.push("/destination");
   };
-  console.log(data);
+  // console.log("id", ride);
 
   return (
-    <div className="main ">
-      <div className="overlay"></div>
-      <div className="component container">
-        <Navigation></Navigation>
-        <div onClick={handleRoad} className="row">
-          {data.map((info) => (
-            <Info key={info.id} info={info}></Info>
-          ))}
+    // <RideContext.Provider value={[ride, setRide]}>
+      <div className="main ">
+        <div className="overlay"></div>
+        <div className="component container">
+          <Navigation></Navigation>
+          <div className="row">
+            {rides.map((ride) => (
+              <Ride key={ride.id} handleRoad={handleRoad} ride={ride}></Ride>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    // </RideContext.Provider>
   );
 };
 

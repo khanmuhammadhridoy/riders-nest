@@ -38,3 +38,6 @@ nav a:active {
 .navigation a:hover{
   color: black;
 }
+.navigation{
+  margin: 50px 0px;
+}

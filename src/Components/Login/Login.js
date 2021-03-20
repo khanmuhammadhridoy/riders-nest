@@ -3,7 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -12,31 +11,27 @@ import { UserContext } from "../../App";
 import {
   handleFbSignIn,
   handleGoogleSignIn,
-  handleSignOut,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   initializeLoginFramework,
 } from "./LoginManage";
 import "./Login.css";
 import GLogo from "../../images/google.png";
 import FBLogo from "../../images/fb.png";
-import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 
-// isSignedIn: false,
-// name: "",
-// email: "",
-// photo: "",
-// error: "",
 const Login = () => {
-  const [newUser, setNewUser] = useState(false);
-  // const [user, setUser] = useState({});
-  initializeLoginFramework();
+  // const [setLoggedInUser] = useContext(UserContext);
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+  const [newUser, setNewUser] = useState(false);
+  const [user, setUser] = useState({});
+  initializeLoginFramework();
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
   const handleBlur = (event) => {
     let isFiledValid = true;
-
     if (event.target.name === "email") {
       isFiledValid = /\S+@\S+\.\S+/.test(event.target.value);
     }
@@ -45,35 +40,53 @@ const Login = () => {
       const passwordHasNumber = /\d{1}/.test(event.target.value);
       isFiledValid = isPasswordValid && passwordHasNumber;
     }
-    if (isFiledValid) {
-      const newUserInfo = { ...loggedInUser };
+
+    if (isFiledValid === true) {
+      const newUserInfo = { ...user };
       newUserInfo[event.target.name] = event.target.value;
-      setLoggedInUser(newUserInfo);
+      setUser(newUserInfo);
     }
   };
+
   const handleSubmit = (e) => {
-    // if (newUser && loggedInUser.email && loggedInUser.password) {
-    // }
+    if (newUser && user.email && user.password) {
+      createUserWithEmailAndPassword(user.email, user.password).then(
+        (res) => {
+          setLoggedInUser(res);
+        }
+      );
+    }
+
+    if (!newUser && user.email && user.password) {
+      signInWithEmailAndPassword(user.email, user.password).then((res) => {
+        setLoggedInUser(res);
+        loginLocation();
+      });
+    }
+
+    e.preventDefault();
   };
   const googleSignIn = () => {
     handleGoogleSignIn().then((res) => {
       setLoggedInUser(res);
-      history.replace(from);
+      loginLocation();
     });
   };
 
   const fbSignIn = () => {
     handleFbSignIn().then((res) => {
       setLoggedInUser(res);
-      let location = history.replace(from);
-      {
-        location === undefined
-          ? history.push("/destination")
-          : history.replace(from);
-      }
+      loginLocation();
     });
   };
-
+  const loginLocation = () => {
+    let location = history.replace(from);
+    {
+      location === undefined
+        ? history.push("/destination")
+        : history.replace(from);
+    }
+  };
   return (
     <div>
       <Navigation></Navigation>
@@ -92,8 +105,7 @@ const Login = () => {
               Login
             </Typography>
           )}
-
-          <form onSubmit={handleSubmit} className="form">
+          <form onSubmit={handleSubmit} action="" className="form">
             <input
               type="checkbox"
               onChange={() => setNewUser(!newUser)}
@@ -103,14 +115,13 @@ const Login = () => {
             <label htmlFor="newUser"> Don't have an account? Sign Up</label>
             {newUser && (
               <TextField
-                autoComplete="name"
                 name="name"
                 variant="outlined"
                 required
                 fullWidth
+                onBlur={handleBlur}
                 id="name"
                 label="Name"
-                autoFocus
               />
             )}
             <TextField
@@ -122,8 +133,6 @@ const Login = () => {
               label="Email Address"
               name="email"
               onBlur={handleBlur}
-              autoComplete="email"
-              autoFocus
             />
             <TextField
               variant="outlined"
@@ -135,21 +144,7 @@ const Login = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
             />
-            {newUser && (
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                onBlur={handleBlur}
-                label="Re-Type Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            )}
             {newUser ? (
               <Button
                 type="submit"
@@ -171,18 +166,6 @@ const Login = () => {
                 Login
               </Button>
             )}
-            {/* <Grid container>
-              <Grid item xs></Grid>
-              <Grid item>
-                <Link to="/signUp">
-                  {
-                    <span className="signUp">
-                      Don't have an account? Sign Up
-                    </span>
-                  }
-                </Link>
-              </Grid>
-            </Grid> */}
           </form>
         </div>
         <div className="otherLogin">

@@ -15,7 +15,9 @@ const Navigation = () => {
         <Link to="/blog">Blog</Link>
         <Link to="/contact">Contact</Link>
         <Link to="/login">
-          {loggedInUser.name === undefined ? "Login" : loggedInUser.name}
+          {loggedInUser.displayName === undefined
+            ? "Login"
+            : loggedInUser.displayName}
         </Link>
       </nav>
     </div>
