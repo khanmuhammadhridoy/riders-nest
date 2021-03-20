@@ -77,14 +77,6 @@ const Login = () => {
       history.replace(from);
     });
   };
-  // const loginLocation = () => {
-  //   let location = history.replace(from);
-  //   {
-  //     location === undefined
-  //       ? history.push("/destination")
-  //       : history.replace(from);
-  //   }
-  // };
   return (
     <div>
       <Navigation></Navigation>

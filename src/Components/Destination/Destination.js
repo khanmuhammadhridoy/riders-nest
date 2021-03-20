@@ -17,7 +17,6 @@ const Destination = () => {
     route[e.target.name] = e.target.value;
     setLocation(route);
   };
-  // console.log("location", location);
 
   return (
     <SearchContext.Provider value={[location, setLocation]}>
