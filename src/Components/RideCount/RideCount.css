@@ -1,0 +1,15 @@
+.ride {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 20px 0px;
+}
+.ride img {
+  width: 50px;
+}
+.ride p {
+  margin: auto;
+}

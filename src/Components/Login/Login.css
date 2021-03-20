@@ -34,7 +34,7 @@ a {
   text-decoration: none;
   color: black;
 }
-p {
+.otherLogin p {
   margin: auto;
   padding: 10px;
 }

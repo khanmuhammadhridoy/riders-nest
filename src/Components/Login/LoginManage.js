@@ -48,7 +48,6 @@ export const handleGoogleSignIn = () => {
     .then((res) => {
       const { displayName, email } = res.user;
       const signedInUser = {
-        isSignedIn: true,
         displayName: displayName,
         email: email,
       };
@@ -65,7 +64,6 @@ export const handleFbSignIn = () => {
     .then((res) => {
       const { displayName, email } = res.user;
       const signedInUser = {
-        isSignedIn: true,
         displayName: displayName,
         email: email,
       };

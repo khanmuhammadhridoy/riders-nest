@@ -21,9 +21,7 @@ import FBLogo from "../../images/fb.png";
 import Navigation from "../Navigation/Navigation";
 
 const Login = () => {
-  // const [setLoggedInUser] = useContext(UserContext);
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({});
   initializeLoginFramework();
@@ -50,7 +48,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     if (newUser && user.email && user.password) {
-      createUserWithEmailAndPassword(user.email, user.password).then(
+      createUserWithEmailAndPassword(user.name, user.email, user.password).then(
         (res) => {
           setLoggedInUser(res);
         }
@@ -60,7 +58,7 @@ const Login = () => {
     if (!newUser && user.email && user.password) {
       signInWithEmailAndPassword(user.email, user.password).then((res) => {
         setLoggedInUser(res);
-        loginLocation();
+        history.replace(from);
       });
     }
 
@@ -69,24 +67,24 @@ const Login = () => {
   const googleSignIn = () => {
     handleGoogleSignIn().then((res) => {
       setLoggedInUser(res);
-      loginLocation();
+      history.replace(from);
     });
   };
 
   const fbSignIn = () => {
     handleFbSignIn().then((res) => {
       setLoggedInUser(res);
-      loginLocation();
+      history.replace(from);
     });
   };
-  const loginLocation = () => {
-    let location = history.replace(from);
-    {
-      location === undefined
-        ? history.push("/destination")
-        : history.replace(from);
-    }
-  };
+  // const loginLocation = () => {
+  //   let location = history.replace(from);
+  //   {
+  //     location === undefined
+  //       ? history.push("/destination")
+  //       : history.replace(from);
+  //   }
+  // };
   return (
     <div>
       <Navigation></Navigation>
